@@ -1,0 +1,6 @@
+@Back_horario_HostAddress = http://localhost:5127
+
+GET {{Back_horario_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
