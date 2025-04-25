@@ -1,7 +1,6 @@
 # Back_horario
 ¡Claro! Aquí tienes un ejemplo de README.md para tu proyecto, basado en todo lo que hemos trabajado:
 
-```markdown
 # 🗓️ Sistema de Gestión de Horarios
 
 Este proyecto es una aplicación web para gestionar horarios académicos semanales, desarrollada con un backend en **ASP.NET Core** y un frontend en **Vue 3**. Soporta autenticación mediante JWT, registro de usuarios, asignación de roles y funcionalidades completas para manejar grupos, temas, horarios y actividades.
