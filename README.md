@@ -14,13 +14,6 @@ Este proyecto es una aplicación web para gestionar horarios académicos semanal
 - JWT (JSON Web Tokens) para autenticación
 - BCrypt.Net para hashing de contraseñas
 - SQL Server
-
-### Frontend (Vue 3)
-- Composition API
-- Pinia (state management)
-- Vue Router
-- TailwindCSS (opcional)
-
 ---
 
 ## 🧠 Características
