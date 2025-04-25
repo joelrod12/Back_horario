@@ -277,3 +277,4 @@ C:\Users\joel_\source\repos\Back_horario\Back_horario\obj\Debug\net9.0\Back_hora
 C:\Users\joel_\source\repos\Back_horario\Back_horario\obj\Debug\net9.0\Back_horario.genruntimeconfig.cache
 C:\Users\joel_\source\repos\Back_horario\Back_horario\obj\Debug\net9.0\ref\Back_horario.dll
 C:\Users\joel_\source\repos\Back_horario\Back_horario\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\joel_\source\repos\Back_horario\Back_horario\obj\Debug\net9.0\Back_horario.sourcelink.json
