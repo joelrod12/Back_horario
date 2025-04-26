@@ -15,6 +15,18 @@ using Back_horario.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Configuración CORS (agregar esto)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowVueFrontend",
+        builder => builder
+            .WithOrigins("http://localhost:5173") // Asegúrate que coincide con tu URL de Vue
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
@@ -75,6 +87,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowVueFrontend");
 
 app.UseAuthentication();
 
