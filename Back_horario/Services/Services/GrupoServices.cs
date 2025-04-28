@@ -79,8 +79,9 @@ namespace Back_horario.Services.Services
             {
                 var grupo = await _context.Grupos.FindAsync(id)
                     ?? throw new Exception("Grupo no encontrado");
-                
-                if (await _context.Grupos.AnyAsync(g => g.Id == id))
+
+                if (await _context.Grupos
+                    .AnyAsync(g => g.Nombre == request.Nombre && g.Id != id))
                 {
                     throw new Exception("Ya existe un grupo con ese nombre");
                 }

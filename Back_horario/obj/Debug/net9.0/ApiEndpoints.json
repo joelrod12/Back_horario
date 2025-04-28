@@ -387,6 +387,32 @@
     ]
   },
   {
+    "ContainingType": "Back_horario.Controllers.HorarioController",
+    "Method": "GetHorariosByUsuario",
+    "RelativePath": "api/Horario/usuario/{usuarioId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuarioId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Back_horario.Models.Domain.DTO.HorarioDTO, Back_horario, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Back_horario.Controllers.RolController",
     "Method": "GetAll",
     "RelativePath": "api/Rol",

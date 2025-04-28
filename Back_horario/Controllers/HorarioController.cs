@@ -1,7 +1,10 @@
-﻿using Back_horario.Models.Domain.DTO;
+﻿using Back_horario.Context;
+using Back_horario.Models.Domain.DTO;
+using Back_horario.Models.Domain.Entities;
 using Back_horario.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Back_horario.Controllers
 {
@@ -9,10 +12,12 @@ namespace Back_horario.Controllers
     [ApiController]
     public class HorarioController : ControllerBase
     {
+        private readonly ApplicationDbContext _context;
         private readonly IHorarioServices _horarioServices;
-        public HorarioController(IHorarioServices horarioServices)
+        public HorarioController(IHorarioServices horarioServices, ApplicationDbContext context)
         {
             _horarioServices = horarioServices;
+            _context = context;
         }
         // GET
         [HttpGet]
@@ -27,6 +32,16 @@ namespace Back_horario.Controllers
         {
             var horario = await _horarioServices.GetById(id);
             return Ok(horario);
+        }
+        [HttpGet("usuario/{usuarioId}")]
+        public async Task<ActionResult<IEnumerable<HorarioDTO>>> GetHorariosByUsuario(int usuarioId)
+        {
+            // Filtra los horarios por el usuarioId
+            var horarios = await _context.Horarios
+                .Where(h => h.UsuarioId == usuarioId)
+                .ToListAsync();
+
+            return Ok(horarios);
         }
         // POST
         [HttpPost]

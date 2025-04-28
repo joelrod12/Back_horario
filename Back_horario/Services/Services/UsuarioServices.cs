@@ -202,6 +202,7 @@ namespace Back_horario.Services.Services
 
                 return new LoginResponseDTO
                 {
+                    Id = usuario.Id,
                     Token = tokenString,
                     Nombre = usuario.Nombre,
                     Correo = usuario.Correo,

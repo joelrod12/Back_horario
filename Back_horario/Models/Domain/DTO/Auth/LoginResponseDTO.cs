@@ -2,6 +2,7 @@
 {
     public class LoginResponseDTO
     {
+        public int Id { get; set; }         // ← Nuevo: guarda aquí el UserId
         public string Token { get; set; } = string.Empty;
         public string Nombre { get; set; } = string.Empty;
         public string Correo { get; set; } = string.Empty;

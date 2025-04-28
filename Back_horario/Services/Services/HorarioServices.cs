@@ -39,6 +39,7 @@ namespace Back_horario.Services.Services
             }
         }
 
+
         public async Task<HorarioDTO> GetById(int id)
         {
             try
