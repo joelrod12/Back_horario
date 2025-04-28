@@ -28,7 +28,8 @@ namespace Back_horario.Services.Services
                         Edificio = h.Edificio,
                         GrupoId = h.GrupoId,
                         TemaId = h.TemaId,
-                        UsuarioId = h.UsuarioId
+                        UsuarioId = h.UsuarioId,
+
                     })
                     .ToListAsync();
             }

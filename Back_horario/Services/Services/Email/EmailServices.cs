@@ -66,18 +66,18 @@ namespace Back_horario.Services.Services.Email
                           <div class='container'>
                             <h2>Restablecimiento de Contraseña</h2>
                             <p>Hola,</p>
-                            <p>Has solicitado restablecer tu contraseña. A continuación encontrarás tu token de recuperación:</p>
+                            <p>Has solicitado restablecer tu contraseña. Tu enlace de recuperación está disponible a continuación.</p>
 
-                            <p style='font-size: 20px; font-weight: bold; background-color: #eee; padding: 10px; border-radius: 5px;'>
-                              {token}
-                            </p>
+                            <a href='http://localhost:5173/Reset-Password?token={token}&correo={WebUtility.UrlEncode(toEmail)}' class='button'>Restablecer contraseña</a>
 
-                            <p>Este token es válido hasta:</p>
+                            <p>O también puedes usar el siguiente token de recuperación:</p>
+
+                            <div class='token'>{token}</div>
+
+                            <p><strong>El token es válido hasta:</strong></p>
                             <p><strong>{expiration?.ToLocalTime():dddd, dd MMMM yyyy hh:mm tt}</strong></p>
 
-                            <p>Si no realizaste esta solicitud, puedes ignorar este mensaje.</p>
-    
-                            <a href='#' class='button'>Restablecer contraseña</a>
+                            <p>Si no realizaste esta solicitud, puedes ignorar este mensaje de manera segura.</p>
 
                             <div class='footer'>
                               <p>&copy; {DateTime.Now.Year} {_emailSettings.SenderName}. Todos los derechos reservados.</p>
