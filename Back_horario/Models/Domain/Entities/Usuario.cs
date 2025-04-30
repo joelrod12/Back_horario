@@ -30,7 +30,7 @@ namespace Back_horario.Models.Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-
         public ICollection<Horario> Horarios { get; set; } = new List<Horario>();
+        public ICollection<Tema> Temas { get; set; } = new List<Tema>();
     }
 }

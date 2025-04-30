@@ -1149,6 +1149,55 @@
         }
       }
     },
+    "/api/Tema/usuario/{usuarioId}": {
+      "get": {
+        "tags": [
+          "Tema"
+        ],
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TemaDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TemaDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TemaDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Usuario": {
       "get": {
         "tags": [
@@ -1693,6 +1742,10 @@
             "type": "string",
             "format": "date-time"
           },
+          "fechaFin": {
+            "type": "string",
+            "format": "date-time"
+          },
           "descripcion": {
             "type": "string",
             "nullable": true
@@ -1860,6 +1913,10 @@
           "color": {
             "type": "string",
             "nullable": true
+          },
+          "usuarioId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

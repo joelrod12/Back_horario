@@ -3,6 +3,7 @@
     public class HorarioDTO : Base.BaseDTO
     {
         public DateTime Fecha { get; set; }
+        public DateTime FechaFin { get; set; }
         public string? Descripcion { get; set; }
         public string Tarea { get; set; } = null!;
         public string? Edificio { get; set; }

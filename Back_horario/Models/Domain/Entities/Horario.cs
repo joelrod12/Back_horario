@@ -9,6 +9,7 @@ namespace Back_horario.Models.Domain.Entities
         public int Id { get; set; }
         [Required]
         public DateTime Fecha { get; set; }
+        public DateTime FechaFin { get; set; }
         public string? Descripcion { get; set; }
         [Required]
         public string Tarea { get; set; } = null!;

@@ -4,5 +4,6 @@
     {
         public string Nombre { get; set; } = null!;
         public string Color { get; set; } = null!;
+        public int UsuarioId { get; set; }
     }
 }

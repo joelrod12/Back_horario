@@ -4,6 +4,7 @@ using Back_horario.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Back_horario.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250430015156_Modific")]
+    partial class Modific
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,9 +162,6 @@ namespace Back_horario.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaFin")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("GrupoId")
                         .HasColumnType("int");
 
@@ -203,7 +203,6 @@ namespace Back_horario.Migrations
                             Descripcion = "Clase de repaso",
                             Edificio = "Edificio A",
                             Fecha = new DateTime(2025, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FechaFin = new DateTime(2025, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GrupoId = 1,
                             Salon = "101",
                             Tarea = "Resolver ejercicios",

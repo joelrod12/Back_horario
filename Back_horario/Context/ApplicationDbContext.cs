@@ -86,6 +86,7 @@ namespace Back_horario.Context
                     Id = 1,
                     Nombre = "Matemáticas",
                     Color = "#FF5733",
+                    UsuarioId = 3,
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
                 }
@@ -97,6 +98,7 @@ namespace Back_horario.Context
                 {
                     Id = 1,
                     Fecha = new DateTime(2025, 04, 21),
+                    FechaFin = new DateTime(2025, 04, 21),
                     Descripcion = "Clase de repaso",
                     Tarea = "Resolver ejercicios",
                     Salon = "101",
@@ -148,6 +150,14 @@ namespace Back_horario.Context
                 .HasOne(u => u.Roles)
                 .WithMany(r => r.Usuarios)
                 .HasForeignKey(u => u.RolId);
+            modelBuilder.Entity<Usuario>()
+                .HasMany(u => u.Horarios)
+                .WithOne(h => h.Usuarios)
+                .HasForeignKey(h => h.UsuarioId);
+            modelBuilder.Entity<Usuario>()
+                .HasMany(u => u.Temas)
+                .WithOne(t => t.Usuarios)
+                .HasForeignKey(t => t.UsuarioId);
 
             modelBuilder.Entity<Horario>()
                 .HasOne(h => h.Grupos)
@@ -162,13 +172,20 @@ namespace Back_horario.Context
             modelBuilder.Entity<Horario>()
                 .HasOne(h => h.Usuarios)
                 .WithMany(u => u.Horarios)
-                .HasForeignKey(h => h.UsuarioId);
+                .HasForeignKey(h => h.UsuarioId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Actividad>()
               .HasOne(a => a.Horarios)
               .WithMany(h => h.Actividades)
               .HasForeignKey(a => a.HorarioId)
               .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Tema>()
+              .HasOne(t => t.Usuarios)
+              .WithMany(u => u.Temas)
+              .HasForeignKey(t => t.UsuarioId)
+              .OnDelete(DeleteBehavior.Restrict);
 
             // Configuración de las fechas de creación y actualización
             modelBuilder.Entity<Rol>()

@@ -671,6 +671,32 @@
     ]
   },
   {
+    "ContainingType": "Back_horario.Controllers.TemaController",
+    "Method": "GetTemasByUsuario",
+    "RelativePath": "api/Tema/usuario/{usuarioId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuarioId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Back_horario.Models.Domain.DTO.TemaDTO, Back_horario, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Back_horario.Controllers.UsuarioController",
     "Method": "GetAll",
     "RelativePath": "api/Usuario",

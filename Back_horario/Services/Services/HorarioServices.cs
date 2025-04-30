@@ -23,6 +23,7 @@ namespace Back_horario.Services.Services
                     {
                         Id = h.Id,
                         Fecha = h.Fecha,
+                        FechaFin = h.FechaFin,
                         Descripcion = h.Descripcion,
                         Tarea = h.Tarea,
                         Edificio = h.Edificio,
@@ -39,7 +40,6 @@ namespace Back_horario.Services.Services
             }
         }
 
-
         public async Task<HorarioDTO> GetById(int id)
         {
             try
@@ -50,6 +50,7 @@ namespace Back_horario.Services.Services
                     {
                         Id = h.Id,
                         Fecha = h.Fecha,
+                        FechaFin = h.FechaFin,
                         Descripcion = h.Descripcion,
                         Tarea = h.Tarea,
                         Edificio = h.Edificio,
@@ -77,6 +78,7 @@ namespace Back_horario.Services.Services
                 var horario = new Horario
                 {
                     Fecha = request.Fecha,
+                    FechaFin = request.FechaFin,
                     Descripcion = request.Descripcion,
                     Tarea = request.Tarea,
                     Edificio = request.Edificio,
@@ -107,6 +109,7 @@ namespace Back_horario.Services.Services
                     throw new Exception("Ya existe un horario con esa fecha y tarea.");
                 }
                 horario.Fecha = request.Fecha;
+                horario.FechaFin = request.FechaFin;
                 horario.Descripcion = request.Descripcion;
                 horario.Tarea = request.Tarea;
                 horario.Edificio = request.Edificio;

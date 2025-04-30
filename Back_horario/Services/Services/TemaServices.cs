@@ -24,6 +24,7 @@ namespace Back_horario.Services.Services
                         Id = t.Id,
                         Nombre = t.Nombre,
                         Color = t.Color,
+                        UsuarioId = t.UsuarioId
                     })
                     .ToListAsync();
             }
@@ -44,12 +45,36 @@ namespace Back_horario.Services.Services
                         Id = t.Id,
                         Nombre = t.Nombre,
                         Color = t.Color,
+                        UsuarioId = t.UsuarioId
+
                     })
                     .FirstOrDefaultAsync() ?? throw new Exception("Tema no encontrado");
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error en obtener el tema: {ex.Message}", ex);
+            }
+        }
+        // Método para obtener los temas por usuarioId
+        public async Task<List<TemaDTO>> GetByUsuarioId(int usuarioId)
+        {
+            try
+            {
+                return await _context.Temas
+                    .Where(t => t.UsuarioId == usuarioId)
+                    .Select(t => new TemaDTO
+                    {
+                        Id = t.Id,
+                        Nombre = t.Nombre,
+                        Color = t.Color,
+                        UsuarioId = t.UsuarioId
+
+                    })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error en obtener los temas por usuario: {ex.Message}", ex);
             }
         }
 
@@ -64,6 +89,7 @@ namespace Back_horario.Services.Services
                 }
                 var tema = new Tema
                 {
+                    UsuarioId = request.UsuarioId,
                     Nombre = request.Nombre,
                     Color = request.Color,
                 };
@@ -87,10 +113,11 @@ namespace Back_horario.Services.Services
                     throw new Exception("Tema no encontrado");
                 }
                 // Validar si ya existe un tema con el mismo nombre
-                if (await _context.Temas.AnyAsync(t => t.Nombre == request.Nombre && t.Id != id))
+                if (await _context.Temas.AnyAsync(t => t.Nombre == request.Nombre ))
                 {
                     throw new Exception("Ya existe un tema con ese nombre");
                 }
+                tema.UsuarioId = request.UsuarioId;
                 tema.Nombre = request.Nombre;
                 tema.Color = request.Color;
                 _context.Temas.Update(tema);
