@@ -26,10 +26,10 @@ namespace Back_horario.Services.Services
                         FechaFin = h.FechaFin,
                         Descripcion = h.Descripcion,
                         Tarea = h.Tarea,
+                        Salon = h.Salon,
                         Edificio = h.Edificio,
                         GrupoId = h.GrupoId,
-                        TemaId = h.TemaId,
-                        UsuarioId = h.UsuarioId,
+                        Usuario_MateriaId = h.Usuario_MateriaId,
 
                     })
                     .ToListAsync();
@@ -53,10 +53,10 @@ namespace Back_horario.Services.Services
                         FechaFin = h.FechaFin,
                         Descripcion = h.Descripcion,
                         Tarea = h.Tarea,
+                        Salon = h.Salon,
                         Edificio = h.Edificio,
                         GrupoId = h.GrupoId,
-                        TemaId = h.TemaId,
-                        UsuarioId = h.UsuarioId
+                        Usuario_MateriaId = h.Usuario_MateriaId
                     })
                     .FirstOrDefaultAsync() ?? throw new Exception("Horario no encontrado");
             }
@@ -81,10 +81,10 @@ namespace Back_horario.Services.Services
                     FechaFin = request.FechaFin,
                     Descripcion = request.Descripcion,
                     Tarea = request.Tarea,
+                    Salon = request.Salon,
                     Edificio = request.Edificio,
                     GrupoId = request.GrupoId,
-                    TemaId = request.TemaId,
-                    UsuarioId = request.UsuarioId
+                    Usuario_MateriaId = request.Usuario_MateriaId
                 };
                 await _context.Horarios.AddAsync(horario);
                 await _context.SaveChangesAsync();
@@ -112,10 +112,10 @@ namespace Back_horario.Services.Services
                 horario.FechaFin = request.FechaFin;
                 horario.Descripcion = request.Descripcion;
                 horario.Tarea = request.Tarea;
+                horario.Salon = request.Salon;
                 horario.Edificio = request.Edificio;
                 horario.GrupoId = request.GrupoId;
-                horario.TemaId = request.TemaId;
-                horario.UsuarioId = request.UsuarioId;
+                horario.Usuario_MateriaId = request.Usuario_MateriaId;
                 _context.Horarios.Update(horario);
                 await _context.SaveChangesAsync();
                 return true;
@@ -141,7 +141,38 @@ namespace Back_horario.Services.Services
             {
                 throw new Exception($"Error al eliminar el horario: {ex.Message}", ex);
             }
-
         }
+
+        public async Task<List<HorarioDTO>> GetByUsuarioId(int usuarioId)
+        {
+            try
+            {
+                return await _context.Horarios
+                    .Include(h => h.Usuario_Materias)
+                        .ThenInclude(um => um.Materias)
+                    .Include(h => h.Grupos)
+                    .Where(h => h.Usuario_Materias.UsuarioId == usuarioId)
+                    .Select(h => new HorarioDTO
+                    {
+                        Id = h.Id,
+                        Fecha = h.Fecha,
+                        FechaFin = h.FechaFin,
+                        Descripcion = h.Descripcion,
+                        Tarea = h.Tarea,
+                        Salon = h.Salon,
+                        Edificio = h.Edificio,
+                        GrupoId = h.GrupoId,
+                        GrupoNombre = h.Grupos.Nombre,
+                        MateriaNombre = h.Usuario_Materias.Materias.Nombre,
+                        Usuario_MateriaId = h.Usuario_MateriaId
+                    })
+                    .ToListAsync() ?? throw new Exception("No se encontraron horarios para el usuario especificado");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener horarios por usuario", ex);
+            }
+        }
+
     }
 }

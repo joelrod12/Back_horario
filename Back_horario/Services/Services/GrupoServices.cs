@@ -22,7 +22,8 @@ namespace Back_horario.Services.Services
                     .Select(g => new GrupoDTO
                     {
                         Id = g.Id,
-                        Nombre = g.Nombre
+                        Nombre = g.Nombre,
+                        Color = g.Color
                     })
                     .ToListAsync();
             }
@@ -40,7 +41,8 @@ namespace Back_horario.Services.Services
                     .Select(g => new GrupoDTO
                     {
                         Id = g.Id,
-                        Nombre = g.Nombre
+                        Nombre = g.Nombre,
+                        Color = g.Color
                     })
                     .FirstOrDefaultAsync() ?? throw new Exception("Grupo no encontrado");
             }
@@ -61,7 +63,8 @@ namespace Back_horario.Services.Services
                 }
                 var grupo = new Grupo
                 {
-                    Nombre = request.Nombre
+                    Nombre = request.Nombre,
+                    Color = request.Color
                 };
                 await _context.Grupos.AddAsync(grupo);
                 await _context.SaveChangesAsync();
@@ -87,6 +90,7 @@ namespace Back_horario.Services.Services
                 }
 
                 grupo.Nombre = request.Nombre;
+                grupo.Color = request.Color;
                 _context.Grupos.Update(grupo);
                 await _context.SaveChangesAsync();
                 return true;

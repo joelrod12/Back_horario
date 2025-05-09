@@ -29,13 +29,6 @@ namespace Back_horario.Controllers
             var tema = await _temaServices.GetById(id);
             return Ok(tema);
         }
-        [HttpGet("usuario/{usuarioId}")]
-        public async Task<ActionResult<List<TemaDTO>>> GetTemasByUsuario(int usuarioId)
-        {
-            // Filtra los temas por el usuarioId
-            var temas = await _temaServices.GetByUsuarioId(usuarioId);
-            return Ok(temas);
-        }
 
         // POST
         [HttpPost]

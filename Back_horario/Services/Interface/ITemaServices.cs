@@ -9,6 +9,5 @@ namespace Back_horario.Services.Interface
         Task<List<TemaDTO>> GetAll();
         Task<TemaDTO> GetById(int id);
         Task<bool> Update(int id, TemaDTO request);
-        Task<List<TemaDTO>> GetByUsuarioId(int usuarioId);
     }
 }

@@ -3,6 +3,6 @@
     public class ActividadDTO : Base.BaseDTO
     {
         public string Descripcion { get; set; } = null!;
-        public int HorarioId { get; set; }
+        public int TemaId { get; set; }
     }
 }

@@ -9,5 +9,6 @@ namespace Back_horario.Services.Interface
         Task<bool> Create(ActividadDTO request);
         Task<bool> Update(int id, ActividadDTO request);
         Task<bool> Delete(int id);
+        Task<List<ActividadDTO>> GetByTemaId(int temaId);
     }
 }

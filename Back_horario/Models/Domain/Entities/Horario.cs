@@ -20,17 +20,11 @@ namespace Back_horario.Models.Domain.Entities
         public int GrupoId { get; set; }
         public Grupo Grupos { get; set; } = null!;
         [Required]
-        [ForeignKey("Temas")]
-        public int TemaId { get; set; }
-        public Tema Temas { get; set; } = null!;
-        [Required]
-        [ForeignKey("Usuarios")]
-        public int UsuarioId { get; set; }
-        public Usuario Usuarios { get; set; } = null!;
+        [ForeignKey("Usuario_Materias")]
+        public int Usuario_MateriaId { get; set; }
+        public Usuario_Materia Usuario_Materias { get; set; } = null!;
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        public ICollection<Actividad> Actividades { get; set; } = new List<Actividad>();
-
-
     }
 }

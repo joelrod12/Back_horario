@@ -24,7 +24,8 @@ namespace Back_horario.Services.Services
                         Id = t.Id,
                         Nombre = t.Nombre,
                         Color = t.Color,
-                        UsuarioId = t.UsuarioId
+                        Unidad = t.Unidad,
+                        MateriaId = t.MateriaId,
                     })
                     .ToListAsync();
             }
@@ -45,36 +46,14 @@ namespace Back_horario.Services.Services
                         Id = t.Id,
                         Nombre = t.Nombre,
                         Color = t.Color,
-                        UsuarioId = t.UsuarioId
-
+                        Unidad = t.Unidad,
+                        MateriaId = t.MateriaId,
                     })
                     .FirstOrDefaultAsync() ?? throw new Exception("Tema no encontrado");
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error en obtener el tema: {ex.Message}", ex);
-            }
-        }
-        // Método para obtener los temas por usuarioId
-        public async Task<List<TemaDTO>> GetByUsuarioId(int usuarioId)
-        {
-            try
-            {
-                return await _context.Temas
-                    .Where(t => t.UsuarioId == usuarioId)
-                    .Select(t => new TemaDTO
-                    {
-                        Id = t.Id,
-                        Nombre = t.Nombre,
-                        Color = t.Color,
-                        UsuarioId = t.UsuarioId
-
-                    })
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error en obtener los temas por usuario: {ex.Message}", ex);
             }
         }
 
@@ -89,9 +68,10 @@ namespace Back_horario.Services.Services
                 }
                 var tema = new Tema
                 {
-                    UsuarioId = request.UsuarioId,
                     Nombre = request.Nombre,
                     Color = request.Color,
+                    Unidad = request.Unidad,
+                    MateriaId = request.MateriaId,
                 };
                 await _context.Temas.AddAsync(tema);
                 await _context.SaveChangesAsync();
@@ -107,19 +87,18 @@ namespace Back_horario.Services.Services
         {
             try
             {
-                var tema = await _context.Temas.FindAsync(id);
-                if (tema == null)
-                {
-                    throw new Exception("Tema no encontrado");
-                }
+                var tema = await _context.Temas.FindAsync(id)
+                    ?? throw new Exception("Tema no encontrado");
+
                 // Validar si ya existe un tema con el mismo nombre
-                if (await _context.Temas.AnyAsync(t => t.Nombre == request.Nombre ))
+                if (await _context.Temas.AnyAsync(t => t.Nombre == request.Nombre && t.Id != id))
                 {
                     throw new Exception("Ya existe un tema con ese nombre");
                 }
-                tema.UsuarioId = request.UsuarioId;
                 tema.Nombre = request.Nombre;
                 tema.Color = request.Color;
+                tema.Unidad = request.Unidad;
+                tema.MateriaId = request.MateriaId;
                 _context.Temas.Update(tema);
                 await _context.SaveChangesAsync();
                 return true;
@@ -134,11 +113,9 @@ namespace Back_horario.Services.Services
         {
             try
             {
-                var tema = await _context.Temas.FindAsync(id);
-                if (tema == null)
-                {
-                    throw new Exception("Tema no encontrado");
-                }
+                var tema = await _context.Temas.FindAsync(id)
+                    ?? throw new Exception("Tema no encontrado");
+                
                 _context.Temas.Remove(tema);
                 await _context.SaveChangesAsync();
                 return true;

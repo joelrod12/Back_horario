@@ -18,12 +18,20 @@ namespace Back_horario.Context
         public DbSet<Rol> Roles { get; set; } = null!;
         public DbSet<Usuario> Usuarios { get; set; } = null!;
         public DbSet<Horario> Horarios { get; set; } = null!;
+        public DbSet<Materia> Materias { get; set; }=null!;
+        public DbSet<Usuario_Materia> Usuario_Materias { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configuración de la base de datos
             modelBuilder.Ignore<EmailSettings>(); // ✅ Esto es suficiente
             base.OnModelCreating(modelBuilder);
             // Semilla de datos para la tabla de grupos
+            modelBuilder.Entity<Rol>().HasData(
+                new Rol { Id = 1, Nombre = "Admin", CreatedAt = new DateTime(2025, 04, 19), UpdatedAt = new DateTime(2025, 04, 19) },
+                new Rol { Id = 2, Nombre = "User", CreatedAt = new DateTime(2025, 04, 19), UpdatedAt = new DateTime(2025, 04, 19) }
+            );
+
+            // Seed Usuarios
             modelBuilder.Entity<Usuario>().HasData(
                 new Usuario
                 {
@@ -31,8 +39,7 @@ namespace Back_horario.Context
                     Nombre = "Juan",
                     Apellido = "Pérez",
                     Correo = "juan.perez@admin.com",
-                    // admin123
-                    Contraseña = "$2a$11$HZ2xOG06SmGzslGxKpOk6e28TzqV7gf7q7iQ1Zq0BsjvNhcqQJBIW",
+                    Contraseña = "$2a$11$HZ2xOG06SmGzslGxKpOk6e28TzqV7gf7q7iQ1Zq0BsjvNhcqQJBIW", // admin123
                     RolId = 1,
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
@@ -43,37 +50,81 @@ namespace Back_horario.Context
                     Nombre = "Ana",
                     Apellido = "López",
                     Correo = "ana.lopez@usuario.com",
-                    // usuario123
+                    Contraseña = "$2a$11$G8raXnSkcGGQcjqhC/Ypj.LVTBwEPUEc71z/O2oM1P2qApuE6N9My", // usuario123
+                    RolId = 2,
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                },
+                new Usuario
+                {
+                    Id = 3,
+                    Nombre = "Joel",
+                    Apellido = "Rodriguez",
+                    Correo = "joelrod128@gmail.com",
                     Contraseña = "$2a$11$G8raXnSkcGGQcjqhC/Ypj.LVTBwEPUEc71z/O2oM1P2qApuE6N9My",
                     RolId = 2,
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
                 }
-                );
+            );
 
-            modelBuilder.Entity<Rol>().HasData(
-                new Rol
+            // Seed Materias
+            modelBuilder.Entity<Materia>().HasData(
+                new Materia
                 {
                     Id = 1,
-                    Nombre = "Admin",
+                    Nombre = "Álgebra Lineal",
+                    Color = "#9B59B6",
+                    Semestre = "2",
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
                 },
-                new Rol
+                new Materia
                 {
                     Id = 2,
-                    Nombre = "User",
+                    Nombre = "Programación Avanzada",
+                    Color = "#3498DB",
+                    Semestre = "2",
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
                 }
             );
 
-            // Seed Grupos
+            // Seed Usuario_Materia
+            modelBuilder.Entity<Usuario_Materia>().HasData(
+                new Usuario_Materia
+                {
+                    Id = 1,
+                    UsuarioId = 3,  // Joel
+                    MateriaId = 1,  // Álgebra Lineal
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                },
+                new Usuario_Materia
+                {
+                    Id = 2,
+                    UsuarioId = 1,  // Juan
+                    MateriaId = 2,  // Programación Avanzada
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                },
+                new Usuario_Materia
+                {
+                    Id = 3,
+                    UsuarioId = 2,  // Ana
+                    MateriaId = 2,  // Programación Avanzada
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                }
+            );
+
+            // Seed Grupo
             modelBuilder.Entity<Grupo>().HasData(
                 new Grupo
                 {
                     Id = 1,
                     Nombre = "Grupo A",
+                    Color = "#FF5733",
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
                 }
@@ -84,28 +135,30 @@ namespace Back_horario.Context
                 new Tema
                 {
                     Id = 1,
-                    Nombre = "Matemáticas",
+                    Nombre = "1.1 Álgebra",
                     Color = "#FF5733",
-                    UsuarioId = 3,
+                    Unidad = "2",
+                    MateriaId = 1,
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
-                }
-            );
-
-            // Seed Horarios
-            modelBuilder.Entity<Horario>().HasData(
-                new Horario
+                },
+                new Tema
                 {
-                    Id = 1,
-                    Fecha = new DateTime(2025, 04, 21),
-                    FechaFin = new DateTime(2025, 04, 21),
-                    Descripcion = "Clase de repaso",
-                    Tarea = "Resolver ejercicios",
-                    Salon = "101",
-                    Edificio = "Edificio A",
-                    GrupoId = 1,
-                    TemaId = 1,
-                    UsuarioId = 2,
+                    Id = 2,
+                    Nombre = "1.2 Conceptos de Programación",
+                    Color = "#33A1FF",
+                    Unidad = "2",
+                    MateriaId = 2,
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                },
+                new Tema
+                {
+                    Id = 3,
+                    Nombre = "1.3 Diagrama de Flujo",
+                    Color = "#FF33A1",
+                    Unidad = "2",
+                    MateriaId = 2,
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
                 }
@@ -116,13 +169,76 @@ namespace Back_horario.Context
                 new Actividad
                 {
                     Id = 1,
-                    Descripcion = "Resolver problemas de álgebra",
-                    HorarioId = 1,
+                    Descripcion = "Resolver problemas de matrices",
+                    TemaId = 1,
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                },
+                new Actividad
+                {
+                    Id = 2,
+                    Descripcion = "Desarrollar aplicación de consola en C#",
+                    TemaId = 2,
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                },
+                new Actividad
+                {
+                    Id = 3,
+                    Descripcion = "Presentación sobre principios SOLID",
+                    TemaId = 2,
                     CreatedAt = new DateTime(2025, 04, 19),
                     UpdatedAt = new DateTime(2025, 04, 19)
                 }
             );
- 
+
+            // Seed Horarios
+            modelBuilder.Entity<Horario>().HasData(
+                new Horario
+                {
+                    Id = 1,
+                    Fecha = new DateTime(2025, 05, 21, 9, 0, 0),
+                    FechaFin = new DateTime(2025, 05, 21, 11, 0, 0),
+                    Descripcion = "Clase de introducción al álgebra",
+                    Tarea = "Ejercicios 1-10 del capítulo 1",
+                    Salon = "101",
+                    Edificio = "Edificio Principal",
+                    GrupoId = 1,
+                    Usuario_MateriaId = 1,
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                },
+                new Horario
+                {
+                    Id = 2,
+                    Fecha = new DateTime(2025, 05, 22, 14, 0, 0),
+                    FechaFin = new DateTime(2025, 05, 22, 16, 0, 0),
+                    Descripcion = "Sesión de programación orientada a objetos",
+                    Tarea = "Desarrollar ejercicio de herencia",
+                    Salon = "Lab 3",
+                    Edificio = "Edificio de Computación",
+                    GrupoId = 1,
+                    Usuario_MateriaId = 2,
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                },
+                new Horario
+                {
+                    Id = 3,
+                    Fecha = new DateTime(2025, 05, 23, 10, 0, 0),
+                    FechaFin = new DateTime(2025, 05, 23, 12, 0, 0),
+                    Descripcion = "Práctica de patrones de diseño",
+                    Tarea = "Implementar Factory Method",
+                    Salon = "Lab 2",
+                    Edificio = "Edificio de Computación",
+                    GrupoId = 1,
+                    Usuario_MateriaId = 3,
+                    CreatedAt = new DateTime(2025, 04, 19),
+                    UpdatedAt = new DateTime(2025, 04, 19)
+                }
+            );
+
+
             // Configuración de las entidades
             modelBuilder.Entity<Rol>().ToTable("Roles");
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");
@@ -130,6 +246,8 @@ namespace Back_horario.Context
             modelBuilder.Entity<Tema>().ToTable("Temas");
             modelBuilder.Entity<Horario>().ToTable("Horarios");
             modelBuilder.Entity<Actividad>().ToTable("Actividades");
+            modelBuilder.Entity<Materia>().ToTable("Materias");
+            modelBuilder.Entity<Usuario_Materia>().ToTable("Usuario_Materias");
             // Configuración de las propiedades
             modelBuilder.Entity<Rol>().Property(r => r.Nombre).IsRequired().HasMaxLength(200);
             modelBuilder.Entity<Usuario>().Property(u => u.Nombre).IsRequired().HasMaxLength(200);
@@ -144,20 +262,29 @@ namespace Back_horario.Context
             modelBuilder.Entity<Horario>().Property(h => h.Salon).HasMaxLength(200);
             modelBuilder.Entity<Horario>().Property(h => h.Edificio).HasMaxLength(200);
             modelBuilder.Entity<Actividad>().Property(a => a.Descripcion).HasMaxLength(200);
+            modelBuilder.Entity<Materia>().Property(m => m.Nombre).IsRequired().HasMaxLength(200);
+
 
             // Relaciones
             modelBuilder.Entity<Usuario>()
                 .HasOne(u => u.Roles)
                 .WithMany(r => r.Usuarios)
                 .HasForeignKey(u => u.RolId);
+
+            modelBuilder.Entity<Tema>()
+                .HasOne(t => t.Materias)
+                .WithMany(m => m.Temas)
+                .HasForeignKey(t => t.MateriaId);
+
             modelBuilder.Entity<Usuario>()
-                .HasMany(u => u.Horarios)
-                .WithOne(h => h.Usuarios)
-                .HasForeignKey(h => h.UsuarioId);
-            modelBuilder.Entity<Usuario>()
-                .HasMany(u => u.Temas)
-                .WithOne(t => t.Usuarios)
-                .HasForeignKey(t => t.UsuarioId);
+               .HasMany(u => u.Usuario_Materias)
+               .WithOne(um => um.Usuarios)
+               .HasForeignKey(um => um.UsuarioId);
+
+            modelBuilder.Entity<Materia>()
+               .HasMany(m => m.Usuario_Materias)
+               .WithOne(um => um.Materias)
+               .HasForeignKey(um => um.MateriaId);
 
             modelBuilder.Entity<Horario>()
                 .HasOne(h => h.Grupos)
@@ -165,27 +292,15 @@ namespace Back_horario.Context
                 .HasForeignKey(h => h.GrupoId);
 
             modelBuilder.Entity<Horario>()
-                .HasOne(h => h.Temas)
-                .WithMany(t => t.Horarios)
-                .HasForeignKey(h => h.TemaId);
-
-            modelBuilder.Entity<Horario>()
-                .HasOne(h => h.Usuarios)
-                .WithMany(u => u.Horarios)
-                .HasForeignKey(h => h.UsuarioId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(h => h.Usuario_Materias)
+                .WithMany(m => m.Horarios)
+                .HasForeignKey(h => h.Usuario_MateriaId);
 
             modelBuilder.Entity<Actividad>()
-              .HasOne(a => a.Horarios)
-              .WithMany(h => h.Actividades)
-              .HasForeignKey(a => a.HorarioId)
+              .HasOne(a => a.Temas)
+              .WithMany(t => t.Actividades)
+              .HasForeignKey(a => a.TemaId)
               .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<Tema>()
-              .HasOne(t => t.Usuarios)
-              .WithMany(u => u.Temas)
-              .HasForeignKey(t => t.UsuarioId)
-              .OnDelete(DeleteBehavior.Restrict);
 
             // Configuración de las fechas de creación y actualización
             modelBuilder.Entity<Rol>()
@@ -230,7 +345,13 @@ namespace Back_horario.Context
                 .Property(a => a.UpdatedAt)
                 .HasDefaultValueSql("GETDATE()")
                 .ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<Materia>()
+                .Property(m => m.CreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+            modelBuilder.Entity<Materia>()
+                .Property(m => m.UpdatedAt)
+                .HasDefaultValueSql("GETDATE()")
+                .ValueGeneratedOnAddOrUpdate();
         }
-        public DbSet<Back_horario.Models.Domain.DTO.TemaDTO> TemaDTO { get; set; } = default!;
     }
 }

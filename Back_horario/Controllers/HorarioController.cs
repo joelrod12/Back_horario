@@ -12,13 +12,11 @@ namespace Back_horario.Controllers
     [ApiController]
     public class HorarioController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private readonly IHorarioServices _horarioServices;
-        public HorarioController(IHorarioServices horarioServices, ApplicationDbContext context)
+        public HorarioController(IHorarioServices horarioServices)
         {
             _horarioServices = horarioServices;
-            _context = context;
-        }
+        } 
         // GET
         [HttpGet]
         public async Task<ActionResult<List<HorarioDTO>>> GetAll()
@@ -32,16 +30,6 @@ namespace Back_horario.Controllers
         {
             var horario = await _horarioServices.GetById(id);
             return Ok(horario);
-        }
-        [HttpGet("usuario/{usuarioId}")]
-        public async Task<ActionResult<IEnumerable<HorarioDTO>>> GetHorariosByUsuario(int usuarioId)
-        {
-            // Filtra los horarios por el usuarioId
-            var horarios = await _context.Horarios
-                .Where(h => h.UsuarioId == usuarioId)
-                .ToListAsync();
-
-            return Ok(horarios);
         }
         // POST
         [HttpPost]
@@ -79,6 +67,20 @@ namespace Back_horario.Controllers
             {
                 var success = await _horarioServices.Delete(id);
                 return success ? Ok(new { message = "Horario eliminado correctamente" }) : NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        // GET by UsuarioId
+        [HttpGet("usuario/{usuarioId}")]
+        public async Task<ActionResult<List<HorarioDTO>>> GetByUsuarioId(int usuarioId)
+        {
+            try
+            {
+                var horarios = await _horarioServices.GetByUsuarioId(usuarioId);
+                return Ok(horarios);
             }
             catch (Exception ex)
             {

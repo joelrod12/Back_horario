@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Back_horario")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9675e4ead28fa80e6b2e8a7cf9c13547b6c56d65")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99e3e10e78a6b6abfcdc70dbc97cf4b55ca3da65")]
 [assembly: System.Reflection.AssemblyProductAttribute("Back_horario")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Back_horario")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -12,7 +12,7 @@ namespace Back_horario.Controllers
     public class ActividadController : ControllerBase
     {
         private readonly IActividadServices _actividadServices;
-        public ActividadController(ApplicationDbContext context, IActividadServices actividadServices)
+        public ActividadController(IActividadServices actividadServices)
         {
             _actividadServices = actividadServices;
         }
@@ -73,6 +73,14 @@ namespace Back_horario.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        // GET: api/Actividad/Tema/5
+        [HttpGet("Tema/{temaId}")]
+        public async Task<ActionResult<List<ActividadDTO>>> GetByTemaId(int temaId)
+        {
+            var actividades = await _actividadServices.GetByTemaId(temaId);
+            return Ok(actividades);
         }
 
     }

@@ -10,9 +10,9 @@ namespace Back_horario.Models.Domain.Entities
         [Required]
         public string Descripcion { get; set; } = null!;
         [Required]
-        [ForeignKey("Horarios")]
-        public int HorarioId { get; set; }
-        public Horario Horarios { get; set; } = null!;
+        [ForeignKey("Temas")]
+        public int TemaId { get; set; }
+        public Tema Temas { get; set; } = null!;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }

@@ -26,7 +26,7 @@ namespace Back_horario.Services.Services
                     {
                         Id = a.Id,
                         Descripcion = a.Descripcion,
-                        HorarioId = a.HorarioId,
+                        TemaId = a.TemaId,
                     })
                     .ToListAsync();
             }
@@ -47,7 +47,7 @@ namespace Back_horario.Services.Services
                     {
                         Id = a.Id,
                         Descripcion = a.Descripcion,
-                        HorarioId = a.HorarioId,
+                        TemaId = a.TemaId,
                     })
                     .FirstOrDefaultAsync() ?? throw new Exception("Actividad no encontrada");
             }
@@ -70,7 +70,7 @@ namespace Back_horario.Services.Services
                 var actividad = new Actividad
                 {
                     Descripcion = request.Descripcion,
-                    HorarioId = request.HorarioId,
+                    TemaId = request.TemaId,
                 };
                 await _context.Actividades.AddAsync(actividad);
                 await _context.SaveChangesAsync();
@@ -96,7 +96,7 @@ namespace Back_horario.Services.Services
                     throw new Exception("Ya existe una actividad con esa descripción");
                 }
                 actividad.Descripcion = request.Descripcion;
-                actividad.HorarioId = request.HorarioId;
+                actividad.TemaId = request.TemaId;
                 _context.Actividades.Update(actividad);
                 await _context.SaveChangesAsync();
                 return true;
@@ -122,6 +122,28 @@ namespace Back_horario.Services.Services
             {
                 // Manejo de excepciones
                 throw new Exception($"Error al eliminar la actividad: {ex.Message}", ex);
+            }
+        }
+
+        // buscar por tema
+        public async Task<List<ActividadDTO>> GetByTemaId(int temaId)
+        {
+            try
+            {
+                return await _context.Actividades
+                    .Where(a => a.TemaId == temaId)
+                    .Select(a => new ActividadDTO
+                    {
+                        Id = a.Id,
+                        Descripcion = a.Descripcion,
+                        TemaId = a.TemaId,
+                    })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                throw new Exception($"Error al obtener las actividades por tema: {ex.Message}", ex);
             }
         }
 

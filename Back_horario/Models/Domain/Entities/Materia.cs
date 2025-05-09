@@ -3,33 +3,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back_horario.Models.Domain.Entities
 {
-    public class Usuario
+    public class Materia
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
         public string Nombre { get; set; } = null!;
         [Required]
-        public string Apellido { get; set; } = null!;
-
-        [Required]
-        public string Correo { get; set; } = null!;
-
-        [Required]
-        public string Contraseña { get; set; } = null!;
-
-        [Required]
-        [ForeignKey("Roles")]
-        public int RolId { get; set; }
-        public Rol Roles { get; set; } = null!;
-        public string? ResetToken { get; set; } // Token de recuperación
-        public DateTime? ResetTokenExpiration { get; set; } // Expiración
-
-
+        public string Color { get; set; } = null!;
+        public string Semestre { get; set; } = null!;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-
         public ICollection<Usuario_Materia> Usuario_Materias { get; set; } = new List<Usuario_Materia>();
+        public ICollection<Tema> Temas { get; set; } = new List<Tema>();
+
+
     }
 }

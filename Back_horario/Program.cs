@@ -39,6 +39,8 @@ builder.Services.AddTransient<IActividadServices, ActividadServices>();
 builder.Services.AddTransient<IHorarioServices, HorarioServices>();
 builder.Services.AddTransient<IGrupoServices, GrupoServices>();
 builder.Services.AddTransient<ITemaServices, TemaServices>();
+builder.Services.AddTransient<IMateriaServices, MateriaServices>();
+builder.Services.AddTransient<IUsuario_MateriaServies, Usuario_MateriaServies>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<IEmailServices, EmailServices>();
 builder.Services.Configure<JwtSettings>(

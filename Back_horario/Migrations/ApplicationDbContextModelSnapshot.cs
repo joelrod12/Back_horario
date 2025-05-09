@@ -22,39 +22,6 @@ namespace Back_horario.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Back_horario.Models.Domain.DTO.TemaDTO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TemaDTO");
-                });
-
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Actividad", b =>
                 {
                     b.Property<int>("Id")
@@ -73,7 +40,7 @@ namespace Back_horario.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("HorarioId")
+                    b.Property<int>("TemaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -83,7 +50,7 @@ namespace Back_horario.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HorarioId");
+                    b.HasIndex("TemaId");
 
                     b.ToTable("Actividades", (string)null);
 
@@ -92,8 +59,24 @@ namespace Back_horario.Migrations
                         {
                             Id = 1,
                             CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Descripcion = "Resolver problemas de álgebra",
-                            HorarioId = 1,
+                            Descripcion = "Resolver problemas de matrices",
+                            TemaId = 1,
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descripcion = "Desarrollar aplicación de consola en C#",
+                            TemaId = 2,
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descripcion = "Presentación sobre principios SOLID",
+                            TemaId = 2,
                             UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -105,6 +88,10 @@ namespace Back_horario.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -129,6 +116,7 @@ namespace Back_horario.Migrations
                         new
                         {
                             Id = 1,
+                            Color = "#FF5733",
                             CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Nombre = "Grupo A",
                             UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -174,24 +162,19 @@ namespace Back_horario.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("TemaId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("UsuarioId")
+                    b.Property<int>("Usuario_MateriaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GrupoId");
 
-                    b.HasIndex("TemaId");
-
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("Usuario_MateriaId");
 
                     b.ToTable("Horarios", (string)null);
 
@@ -200,16 +183,99 @@ namespace Back_horario.Migrations
                         {
                             Id = 1,
                             CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Descripcion = "Clase de repaso",
-                            Edificio = "Edificio A",
-                            Fecha = new DateTime(2025, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FechaFin = new DateTime(2025, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descripcion = "Clase de introducción al álgebra",
+                            Edificio = "Edificio Principal",
+                            Fecha = new DateTime(2025, 5, 21, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaFin = new DateTime(2025, 5, 21, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             GrupoId = 1,
                             Salon = "101",
-                            Tarea = "Resolver ejercicios",
-                            TemaId = 1,
+                            Tarea = "Ejercicios 1-10 del capítulo 1",
                             UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UsuarioId = 2
+                            Usuario_MateriaId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descripcion = "Sesión de programación orientada a objetos",
+                            Edificio = "Edificio de Computación",
+                            Fecha = new DateTime(2025, 5, 22, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaFin = new DateTime(2025, 5, 22, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            GrupoId = 1,
+                            Salon = "Lab 3",
+                            Tarea = "Desarrollar ejercicio de herencia",
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Usuario_MateriaId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Descripcion = "Práctica de patrones de diseño",
+                            Edificio = "Edificio de Computación",
+                            Fecha = new DateTime(2025, 5, 23, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaFin = new DateTime(2025, 5, 23, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            GrupoId = 1,
+                            Salon = "Lab 2",
+                            Tarea = "Implementar Factory Method",
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Usuario_MateriaId = 3
+                        });
+                });
+
+            modelBuilder.Entity("Back_horario.Models.Domain.Entities.Materia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Semestre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Materias", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Color = "#9B59B6",
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nombre = "Álgebra Lineal",
+                            Semestre = "2",
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "#3498DB",
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nombre = "Programación Avanzada",
+                            Semestre = "2",
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -274,22 +340,26 @@ namespace Back_horario.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<int>("MateriaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Unidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("MateriaId");
 
                     b.ToTable("Temas", (string)null);
 
@@ -299,9 +369,30 @@ namespace Back_horario.Migrations
                             Id = 1,
                             Color = "#FF5733",
                             CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nombre = "Matemáticas",
-                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UsuarioId = 3
+                            MateriaId = 1,
+                            Nombre = "1.1 Álgebra",
+                            Unidad = "2",
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Color = "#33A1FF",
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MateriaId = 2,
+                            Nombre = "1.2 Conceptos de Programación",
+                            Unidad = "2",
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Color = "#FF33A1",
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MateriaId = 2,
+                            Nombre = "1.3 Diagrama de Flujo",
+                            Unidad = "2",
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -379,18 +470,84 @@ namespace Back_horario.Migrations
                             Nombre = "Ana",
                             RolId = 2,
                             UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Apellido = "Rodriguez",
+                            Contraseña = "$2a$11$G8raXnSkcGGQcjqhC/Ypj.LVTBwEPUEc71z/O2oM1P2qApuE6N9My",
+                            Correo = "joelrod128@gmail.com",
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nombre = "Joel",
+                            RolId = 2,
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Back_horario.Models.Domain.Entities.Usuario_Materia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MateriaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MateriaId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Usuario_Materias", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MateriaId = 1,
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsuarioId = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MateriaId = 2,
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsuarioId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MateriaId = 2,
+                            UpdatedAt = new DateTime(2025, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UsuarioId = 2
                         });
                 });
 
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Actividad", b =>
                 {
-                    b.HasOne("Back_horario.Models.Domain.Entities.Horario", "Horarios")
+                    b.HasOne("Back_horario.Models.Domain.Entities.Tema", "Temas")
                         .WithMany("Actividades")
-                        .HasForeignKey("HorarioId")
+                        .HasForeignKey("TemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Horarios");
+                    b.Navigation("Temas");
                 });
 
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Horario", b =>
@@ -401,34 +558,26 @@ namespace Back_horario.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Back_horario.Models.Domain.Entities.Tema", "Temas")
+                    b.HasOne("Back_horario.Models.Domain.Entities.Usuario_Materia", "Usuario_Materias")
                         .WithMany("Horarios")
-                        .HasForeignKey("TemaId")
+                        .HasForeignKey("Usuario_MateriaId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Back_horario.Models.Domain.Entities.Usuario", "Usuarios")
-                        .WithMany("Horarios")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Grupos");
 
-                    b.Navigation("Temas");
-
-                    b.Navigation("Usuarios");
+                    b.Navigation("Usuario_Materias");
                 });
 
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Tema", b =>
                 {
-                    b.HasOne("Back_horario.Models.Domain.Entities.Usuario", "Usuarios")
+                    b.HasOne("Back_horario.Models.Domain.Entities.Materia", "Materias")
                         .WithMany("Temas")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("MateriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Usuarios");
+                    b.Navigation("Materias");
                 });
 
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Usuario", b =>
@@ -442,14 +591,35 @@ namespace Back_horario.Migrations
                     b.Navigation("Roles");
                 });
 
+            modelBuilder.Entity("Back_horario.Models.Domain.Entities.Usuario_Materia", b =>
+                {
+                    b.HasOne("Back_horario.Models.Domain.Entities.Materia", "Materias")
+                        .WithMany("Usuario_Materias")
+                        .HasForeignKey("MateriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Back_horario.Models.Domain.Entities.Usuario", "Usuarios")
+                        .WithMany("Usuario_Materias")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Materias");
+
+                    b.Navigation("Usuarios");
+                });
+
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Grupo", b =>
                 {
                     b.Navigation("Horarios");
                 });
 
-            modelBuilder.Entity("Back_horario.Models.Domain.Entities.Horario", b =>
+            modelBuilder.Entity("Back_horario.Models.Domain.Entities.Materia", b =>
                 {
-                    b.Navigation("Actividades");
+                    b.Navigation("Temas");
+
+                    b.Navigation("Usuario_Materias");
                 });
 
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Rol", b =>
@@ -459,14 +629,17 @@ namespace Back_horario.Migrations
 
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Tema", b =>
                 {
-                    b.Navigation("Horarios");
+                    b.Navigation("Actividades");
                 });
 
             modelBuilder.Entity("Back_horario.Models.Domain.Entities.Usuario", b =>
                 {
-                    b.Navigation("Horarios");
+                    b.Navigation("Usuario_Materias");
+                });
 
-                    b.Navigation("Temas");
+            modelBuilder.Entity("Back_horario.Models.Domain.Entities.Usuario_Materia", b =>
+                {
+                    b.Navigation("Horarios");
                 });
 #pragma warning restore 612, 618
         }
