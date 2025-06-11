@@ -21,7 +21,7 @@ namespace Back_horario.Controllers
             var usuarioMaterias = await _usuario_MateriaServices.GetAll();
             return Ok(usuarioMaterias);
         }
-        // POST prueba
+        // POST
         [HttpPost]
         public async Task<ActionResult<Usuario_MateriaDTO>> Create([FromBody] Usuario_MateriaDTO usuarioMateria)
         {
